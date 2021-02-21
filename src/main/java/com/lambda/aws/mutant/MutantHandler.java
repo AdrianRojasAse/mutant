@@ -65,7 +65,7 @@ public class MutantHandler implements RequestHandler<DnaPOJO , String> {
 		return next;
 	}
 
-	public static int isMutant(String[] dna) {
+	public static boolean isMutant(String[] dna) {
 		
 		size = dna.length;
 		int secuencias = 0;
@@ -85,7 +85,8 @@ public class MutantHandler implements RequestHandler<DnaPOJO , String> {
 				}
 			}
 		}
-		return secuencias;
+		
+		return secuencias>=2? true:false;
 	}
 
     @Override
@@ -95,7 +96,7 @@ public class MutantHandler implements RequestHandler<DnaPOJO , String> {
     	
     	dnaPojo.setId((int) Math.floor(Math.random()*(1000000-100+1)+100));
        			
-			if(isMutant(dnaPojo.getDna())>=2) {
+			if(isMutant(dnaPojo.getDna())) {
 				response = "OK";	
 				dnaPojo.setIsMutant("S");
 				persistData(dnaPojo);
